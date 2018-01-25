@@ -8,6 +8,7 @@ class ContactHelper:
 
     def create(self, contact):
         wd = self.app.wd
+        self.open_home_page()
         wd.find_element_by_link_text("add new").click()
         self.fill_contact_form(contact)
         wd.find_element_by_name("submit").click()
@@ -45,11 +46,12 @@ class ContactHelper:
         self.select_first_contact()
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         self.fill_contact_form(new_contact_data)
+        wd.find_element_by_name("update").click()
         self.open_home_page()
 
     def open_home_page(self):
         wd = self.app.wd
-        if not (wd.current_url.endswith(" ") and len(wd.find_elements_by_name("add")) > 0):
+        if not (wd.current_url.endswith("/addressbook/") and len(wd.find_elements_by_name("add")) > 0):
             wd.find_element_by_link_text("home").click()
 
     def count(self):
@@ -61,7 +63,7 @@ class ContactHelper:
         wd = self.app.wd
         self.open_home_page()
         contacts = []
-        for element in wd.find_elements_by_css_selector("tr[name=entry]"):
+        for element in wd.find_elements_by_css_selector("tr[name='entry']"):
             firstname = element.text
             lastname = element.text
             id = element.find_element_by_name("selected[]").get_attribute("value")
