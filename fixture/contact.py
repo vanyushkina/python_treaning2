@@ -63,7 +63,7 @@ class ContactHelper:
         wd = self.app.wd
         self.open_home_page()
         contacts = []
-        for element in wd.find_elements_by_css_selector("tr[name='entry']"):
+        for element in wd.find_elements_by_css_selector("tr[name=entry]"):
             firstname = element.text
             lastname = element.text
             id = element.find_element_by_name("selected[]").get_attribute("value")
